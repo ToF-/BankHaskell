@@ -10,20 +10,18 @@ type Balance= Double
 empty :: Account 
 empty = []
 
-operation :: Monad m => Account -> (m String) -> (String -> m ()) -> m Account
-operation acc inp out = inp >>= \s -> perform (words s) acc out
+command :: Monad m => Account -> (m String) -> (String -> m ()) -> m Account
+command acc inp out = inp >>= \s -> perform (words s) acc out
     where
     perform :: Monad m => [String] -> Account -> (String -> m ()) -> m Account
-    perform ["S"] acc out = output acc out >> return acc
+    perform ["S"] acc out = out (statement acc) >> return acc
     perform s _ out       = out ((unwords s) ++ "?") >> return acc 
 
-    output :: Monad m => Account -> (String -> m ()) -> m ()
-    output acc out = out $ unlines $ header : statement acc
-
-        where 
-        statement = map showOperation
-        header = " date | credit | debit | balance " 
-        showOperation (date,c,0,b) = " " ++ date ++ " | " ++ show c ++" | | " ++ show c ++ " " 
-        showOperation (date,0,d,b) = " " ++ date ++ " | | " ++ show d ++" | " ++ show (-d) ++ " " 
-
+    statement = unlines . (header :) . map showOp
+    
+    header = " date | credit | debit | balance " 
+    
+    showOp (date,c,0,b) = " " ++ date ++ " | " ++ show c ++" | | " ++ show c ++ " " 
+    showOp (date,0,d,b) = " " ++ date ++ " | | " ++ show d ++" | " ++ show (-d) ++ " " 
+    
 
