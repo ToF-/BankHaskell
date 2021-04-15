@@ -1,0 +1,66 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 5fd73bfbe9069bfe72954de4240cb2ef6ca1ab8f4fba679ed14216c0be32217d
+
+name:           BankHaskell
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/BankHaskell#readme>
+homepage:       https://github.com/githubuser/BankHaskell#readme
+bug-reports:    https://github.com/githubuser/BankHaskell/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2021 Author name here
+license:        BSD3
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/BankHaskell
+
+library
+  exposed-modules:
+      Bank
+  other-modules:
+      Paths_BankHaskell
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , mtl
+  default-language: Haskell2010
+
+executable BankHaskell-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_BankHaskell
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      BankHaskell
+    , base >=4.7 && <5
+    , mtl
+  default-language: Haskell2010
+
+test-suite BankHaskell-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      BankSpec
+      Paths_BankHaskell
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      BankHaskell
+    , base >=4.7 && <5
+    , hspec
+    , mtl
+  default-language: Haskell2010

@@ -1,8 +1,12 @@
+module BankSpec
+    where
+
 import Test.Hspec
 import Control.Monad.Writer
 import Bank
 
-main = hspec $ do
+spec :: SpecWith ()
+spec = do
     describe "command" $ do
         describe "S prints the account statement" $ do
             it "when empty account, prints just the header" $ do
